@@ -21,7 +21,6 @@ env/
 *.sqlite3
 
 # MySQL
-*.sql
 *.dump
 mysql_data/
 
