@@ -50,6 +50,143 @@
                     </div>
                 </aside>
             </header>
+
+            <main class="dashboard">
+                <section class="grid-top">
+                    <article class="panel glass from-panel">
+                        <div class="section-heading">
+                            <div>
+                                <p class="section-label">Trade Logger</p>
+                                <h2>Add or update a trade</h2>
+                            </div>
+                            <button type="button" class="ghost-button" id="resetForm"></button>
+                        </div>
+
+                        <form id="tradeForm" class="trade-form">
+                            <input type="hidden" id="tradId">
+
+                            <label>
+                                <span>Date</span>
+                                <input type="date" id="tradeDate" required>
+                            </label>
+
+                            <label>
+                                <span>Symbol</span>
+                                <input type="text" id="symbol" placeholder="AAPL /NQ /BTCUSD" required>
+                            </label>
+
+                            <label>
+                                <span>Market</span>
+                                <input type="text" id="market" placeholder="Equities, Futures, Forex">
+                            </label>
+
+                            <label>
+                                <span>Side</span>
+                                <select id="side" required>
+                                    <option value="long">Long</option>
+                                    <option value="short">Short</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                <span>Strategy</span>
+                                <input type="text" id="strategy" placeholder="Breakout, Pullback, Reversal">
+                            </label>
+
+                            <label>
+                                <span>Quantity</span>
+                                <input type="number" id="quantity" min=0.0001 step="0.0001" required>
+                            </label>
+
+                            <label>
+                                <span>Entry Price</span>
+                                <input type="number" id="entryPrice" min="0" step="0.0001" required>
+                            </label>
+
+                            <label>
+                                <span>Exit Price</span>
+                                <input type="number" id="exitPrice" min="0" step="0.0001" required>
+                            </label>
+
+                            <label>
+                                <span>Stop Price</span>
+                                <input type="number" id="stopPrice" min="0" step="0.0001" placeholder="Optional">
+                            </label>
+
+                            <label>
+                                <span>Fees</span>
+                                <input type="number" id="fees" min="0" step="0.01" value="0">
+                            </label>
+
+                            <label class="full-span">
+                                <span>Tags</span>
+                                <textarea type="text" id="tags" placeholder="open drive, earnings, trend day"></textarea>
+                            </label>
+
+                            <label class="full-span">
+                                <span>Notes</span>
+                                <textarea id="notes" rows="4" placeholder="Why you took the trade, what you saw, what you learned"></textarea>
+                            </label>
+
+                            <div class="form=preview" id="formPreview">
+                                <div>
+                                    <span>Gross PnL</span>
+                                    <strong id="previewGross">$0.00</strong>
+                                </div>
+
+                                <div>
+                                    <span>Net PnL</span>
+                                    <strong id="previewNet">$0.00</strong>
+                                </div>
+
+                                <div>
+                                    <span>Return</span>
+                                    <strong id="previewReturn">$0.00</strong>
+                                </div>
+
+                                <div>
+                                    <span>R-Multiple</span>
+                                    <strong id="previewR">N/A</strong>
+                                </div>
+
+                                <div class="form-actions full-span">
+                                    <button type="submit" class="primary-button" id="submitBtn">Save trade</button>
+                                    <button type="button" class="ghost-button" id="exportBtn">Export JSON</button>
+                                </div>
+                            </form>
+                    </article>
+
+                    <article class="panel glass metrics-panel">
+                        <div class="section-heading">
+                            <div>
+                                <p class="section-label">Performance Snapshot</p>
+                                <h2>Statistical overview</h2>
+                            </div>
+                        </div>
+                        <div class="metric-grid" id="metricGrid"></div>
+                    </article>
+                </section>
+
+                <section class="grid-buttom">
+                    <article class="panel-glass history-panel full-width">
+                        <div class="section-heading">
+                            <div>
+                                <p class="section-label">Trade History</p>
+                                <h2>Review and manage your executions</h2>
+                            </div>
+                            <button type="button" class="ghost-button danger" id="clearAllBtn">Clear Journal</button>
+                        </div>
+
+                        <div class="toolbar">
+                            <label class="toolbar-field">
+                                <span>Search</span>
+                                <input>
+                            </label>
+                        </div>
+                    </article>
+                </section>
+
+            </main>
         </div>
     </body>
 </html>
