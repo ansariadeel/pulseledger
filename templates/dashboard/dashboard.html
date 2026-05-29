@@ -22,6 +22,34 @@
                     <button class="ghost-button" id="logoutBtn">Log out</button>
                 </div>
             </nav>
+
+            <header class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">Trading Journal</p>
+                    <h1>Track every trade with conviction, context, and clean analytics.</h1>
+                    <p class="hero-text">
+                        PulseLedger helps you record executions, calculate P&amp;L automatically,
+                        and review consistency through performance metrics and journal notes.
+                    </p>
+                    <div class="hero-badges">
+                        <span>Automatic PnL</span>
+                        <span>Trade History</span>
+                        <span>Equity Charts</span>
+                        <span>Risk Metrics</span>
+                    </div>
+                </div>
+
+                <aside class="hero-panel glass">
+                    <div class="mini-stat">
+                        <span class="mini-label">Journal status</span>
+                        <strong id="journalStatus">Loading</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span class="mini-label">Logged in as</span>
+                        <strong>{{ user.username }}</strong>
+                    </div>
+                </aside>
+            </header>
         </div>
     </body>
 </html>
