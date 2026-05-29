@@ -4,5 +4,24 @@
         <meta charset="UTF-8">
         <meta charset="viewport" content="width=device-width, initial-scale=1.0">
         <title>PulseLedger | Trading Journal</title>
+        <link rel="stylesheet" href="{{ url_for('static', filname='css/style.css') }}">
     </head>
+    <body>
+        <div class="page-shell">
+            <div class="ambient ambient-left"></div>
+            <div class="ambient ambient-right"></div>
+
+            <!--- Top Navbar --->
+            <nav class="topnav glass">
+                <div class="nav-brand">
+                    <span class="brand-dot"></span>
+                    Pulse Ledger
+                </div>
+                <div class="nav-right">
+                    <span class="nav-user">{{ user.name }}</span>
+                    <button class="ghost-button" id="logoutBtn">Log out</button>
+                </div>
+            </nav>
+        </div>
+    </body>
 </html>
