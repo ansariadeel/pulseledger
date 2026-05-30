@@ -180,12 +180,51 @@
                         <div class="toolbar">
                             <label class="toolbar-field">
                                 <span>Search</span>
-                                <input>
+                                <input type="search" id="searchInput" placeholder="Search symbol, strategy, market, tags">
                             </label>
+
+                            <label class="toolbar-feild">
+                                <span>Side</span>
+                                <select id="sideFilter">
+                                    <option value="all">All</option>
+                                    <option value="long">Long</option>
+                                    <option value="short">Short</option>
+                                </select>
+                            </label>
+
+                            <label class="toolbar-field">
+                                <span>Outcome</span>
+                                <select id="outcomeFilter">
+                                    <option value="all">All</option>
+                                    <option value="win">Win</option>
+                                    <option value="loss">Losses</option>
+                                </select>
+                            </label>
+                        </div>
+                        
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Symbol</th>
+                                        <th>Side</th>
+                                        <th>Stratrgy</th>
+                                        <th>Qty</th>
+                                        <th>Entry</th>
+                                        <th>Exit</th>
+                                        <th>Net</th>
+                                        <th>Net PnL</th>
+                                        <th>R</th>
+                                        <th>Notes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tradeTableBody"></tbody>
+                            </table>
                         </div>
                     </article>
                 </section>
-
             </main>
         </div>
     </body>
