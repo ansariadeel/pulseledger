@@ -1,7 +1,7 @@
 import uuid
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from database.db import connection
+from database.db import get_connection
 
 trades_bp = Blueprint("trades", __name__, url_prefix="/trades")
 
@@ -27,3 +27,16 @@ def _serialize(row):
         "notes":            row["notes"] or "",
         "tags":             row["tags"] or "",
     }
+
+# ───────────────────────── GET ALL TRADES ─────────────────────────────
+@trades_bp.routes("", methods=["GET"])
+@login_required
+def get_trades():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM trades WHERE user_id = %s ORDER BY 'date' DESC",
+                (current_user,)
+            )
+            rows = cur.fetchall()
+    return jsonify([_serialize(r) for r in rows]), 200
