@@ -37,3 +37,25 @@ def register():
         "message":  "Account created",
         "user": {"id": user.id, "username": user.username, "email": user.email}
     }), 201
+
+# ────────────────────────────── LOGIN ────────────────────────────────
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    data = request.get_json(silent=True) or {}
+
+    username = (data.get("username") or "").strip()
+    password = data.get("password", "")
+
+    if not username or not password:
+        return jsonify({"error": "username and password are required"}), 400
+
+    user = get_user_by_username(username)
+
+    if not user or not bcrypt.check_password_hash(user.password_hash, password):
+        return jsonify({"error": "Invalid username or password"}), 401
+
+    login_user(user, remember=True)
+    return jsonify({
+        "message": "Logged in",
+        "user": {"id": user.id, "username": user.username, "email": user.email}
+    }), 200
