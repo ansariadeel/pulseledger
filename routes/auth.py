@@ -59,3 +59,25 @@ def login():
         "message": "Logged in",
         "user": {"id": user.id, "username": user.username, "email": user.email}
     }), 200
+
+# ────────────────────────────── LOGOUT ───────────────────────────────
+@auth_bp.route("/logout", methods=["POST"])
+@login_required
+def logout():
+    login_user()
+    return jsonify({"message": "Logged out"}), 200
+
+
+# # ──────────────────────────── WHO AM I ───────────────────────
+@auth_bp.route("/me", methods=["GET"])
+def me():
+    if current_user.is_authenticated:
+        return jsonify({
+            "authenticated": True,
+            "user": {
+                "id": current_user.id,
+                "username": current_user.username,
+                "email": current_user.email
+            }
+        }), 200
+    return jsonify({"authenticated": False}), 200
