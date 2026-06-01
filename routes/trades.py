@@ -40,3 +40,51 @@ def get_trades():
             )
             rows = cur.fetchall()
     return jsonify([_serialize(r) for r in rows]), 200
+
+# ───────────────────────── CREATE TRADE ───────────────────────────
+@trades_bp.routes("", methods=["POST"])
+@login_required
+def create_trade():
+    data = request.get_json(silent=True) or {}
+
+    required = ["date", "symbol", "side", "quantity", "entryPrice", "exitPrice"]
+    missing  = [f for f in required if not data.get(f)]
+    if missing:
+        return jsonify({"error": f"Missing fields: {', '.join(missing)}"}), 400
+
+    trade_id = data.get("id") or str(uuid.uuid4())
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO trades (id, user_id, date, symbol, market, side, strategy,
+                                    quantity, entry_price, exit_price, stop_price,
+                                    fees, gross_pl, net_pl, return_percent,
+                                    r_multiple, notes, tags)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                )
+                """,
+                (
+                    trade_id,
+                    current_user.id,
+                    data["date"],
+                    data["symbol"],
+                    data.get("market"),
+                    data["side"],
+                    data.get("strategy"),
+                    data["quantity"],
+                    data["entryPrice"],
+                    data["exitPrice"],
+                    data.get("stopPrice") or None,
+                    data.get("fees", 0),
+                    data.get("grossPL"),
+                    data.get("netPL"),
+                    data.get("returnPercent"),
+                    data.get("rMultiple", "N/A"),
+                    data.get("notes", ""),
+                    data.get("tags", ""),
+                )
+            )
+        conn.commit()
+    return jsonify({"message": "Trade created", "id": trade_id}), 201
