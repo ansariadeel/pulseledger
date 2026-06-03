@@ -39,6 +39,7 @@ def get_trades():
                 (current_user,)
             )
             rows = cur.fetchall()
+
     return jsonify([_serialize(r) for r in rows]), 200
 
 # ───────────────────────── CREATE TRADE ───────────────────────────
@@ -87,4 +88,67 @@ def create_trade():
                 )
             )
         conn.commit()
+
     return jsonify({"message": "Trade created", "id": trade_id}), 201
+
+# ───────────────────────── UPDATE TRADE ───────────────────────────────
+@trades_bp.route("/<trade_id>", method=["PUT"])
+@login_required
+def update_trade(trade_id):
+    data = request.get_json(silent=True) or {}
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            # Confirm the trade belongs to this user
+            cur.execute(
+                "SELECT id FROM trades WHERE id = %s AND user_id = %s",
+                (trade_id, current_user.id)
+            )
+            if not cur.fetchone():
+                return jsonify({"error":"Trade not found"}), 404
+            
+            cur.execute(
+                """
+                UPDATE trades SET
+                    date            = %s,
+                    symbol          = %s,
+                    market          = %s,
+                    side            = %s,
+                    strategy        = %s,
+                    quantity        = %s,
+                    entry_price     = %s,
+                    exit_price      = %s,
+                    stop_price      = %s,
+                    fees            = %s,
+                    gross_pl        = %s,
+                    net_pl          = %s,
+                    return_percent  = %s,
+                    r_multiple      = %s,
+                    notes           = %s,
+                    tags            = %s
+                WHERE id = %s AND user_id = %s
+                """,
+                (
+                    data.get("date"),
+                    data.get("symbol"),
+                    data.get("market"),
+                    data.get("side"),
+                    data.get("strategy"),
+                    data.get("quantity"),
+                    data.get("entryPrice"),
+                    data.get("exitPrice"),
+                    data.get("stopPrice") or None,
+                    data.get("fees", 0),
+                    data.get("grossPL"),
+                    data.get("netPL"),
+                    data.get("returnPercent"),
+                    data.get("rMultiple", "N/A"),
+                    data.get("notes"),
+                    data.get("tags"),
+                    trade_id,
+                    current_user.id,
+                )
+            )
+        conn.commit()
+
+    return jsonify({"message": "Trade updated"}, 200)
