@@ -4,5 +4,41 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0 /">
         <title>PulseLedger - Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filname='css/auth.css') }}">
     </head>
+    <body>
+        <div class="auth-shell">
+            <div class="ambient ambient-left"></div>
+            <div class="ambient ambient-rigt"></div>
+
+            <div class="auth-card glass">
+                <div class="auth-brand">
+                    <span class="brand-dot"></span>
+                    PulseLedger
+                </div>
+                <h1>Welcome back</h1>
+                <p class="auth-sub">Log in to your trading journal</p>
+
+                <div id="errorBox" class="error-box hidden"></div>
+
+                <div class=""auth-form>
+                    <label>
+                        <span>Username</span>
+                        <input type="text" id="username" placeholder="your username" autocomplete="username" />
+                    </label>
+
+                    <label>
+                        <span>Password</span>
+                        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+                    </label>
+
+                <button class="primary-button" id="loginBtn">Log in</button>
+                </div>
+
+                <p class="auth-footer">
+                    No account? <a href="/register">Create one</a>
+                </p>
+            </div>
+        </div>
+    </body>
 </html>
