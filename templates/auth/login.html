@@ -40,5 +40,47 @@
                 </p>
             </div>
         </div>
+
+        <script>
+            document.getElementById("loginBtn").addEventListener("click", async () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const errorBox = document.getElementById("errorBox");
+
+      errorBox.classList.add("hidden");
+
+      if (!username || !password) {
+        errorBox.textContent = "Please enter username and password.";
+        errorBox.classList.remove("hidden");
+        return;
+      }
+
+      try {
+        const res = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          window.location.href = "/dashboard";
+        } else {
+          errorBox.textContent = data.error || "Login failed.";
+          errorBox.classList.remove("hidden");
+        }
+      } catch (err) {
+        errorBox.textContent = "Network error. Is Flask running?";
+        errorBox.classList.remove("hidden");
+      }
+    });
+
+    // Allow Enter key to submit
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("loginBtn").click();
+    });
+        </script>
     </body>
 </html>
