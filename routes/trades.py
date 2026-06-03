@@ -152,3 +152,21 @@ def update_trade(trade_id):
         conn.commit()
 
     return jsonify({"message": "Trade updated"}, 200)
+
+# ───────────────────────── DELETE TRADE ───────────────────────────────
+@trades_bp.route("<trade_id>", methods=["DELETE"])
+@login_required
+def delete_trade(trade_id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "DELETE FROM trades WHERE id = %s AND user_id = %s",
+                (trade_id, current_user.id)
+            )
+            deleted = cur.rowcount
+        conn.commit()
+
+    if not deleted:
+        return jsonify({"error": "Trade not found"}), 404
+    
+    return jsonify({"message": "Trade deleted"}), 200
