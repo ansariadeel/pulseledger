@@ -48,3 +48,18 @@ async function saveTrade(trade) {
         trades.push(trade);
     }
 }
+
+// ─────────────────────── DELETE ONE TRADE ──────────────────────────
+async function deleteTrade(id) {
+    const res = await fetch(`/trades/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+    });
+
+    if (!res.ok) {
+        const res = await res.json();
+        throw new Error(err.error || "Failed to delete trade");
+    }
+    
+    trades = trades.filter((t) => t.id !== id);
+}
