@@ -21,3 +21,30 @@ async function loadTrades() {
         trades = [];
     }
 }
+
+// ─────────────────────── SAVE ONE TRADE ────────────────────────────
+async function saveTrade(trade) {
+    const isEdit = trades.some((t) => t.id === trade.id);
+    const url = isEdit ? `/trades/${trade.id}` : "/trades";
+    const method = isEdit ? "PUT" : "POST";
+
+    const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(trade)
+    })
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save trade");
+    }
+
+    // Keep local array in sync
+    if (isEdit) {
+        const index = trades.findIndex((t) => t.id === trade.id);
+        trades[index] = trade;
+    } else {
+        trades.push(trade);
+    }
+}
