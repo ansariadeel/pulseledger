@@ -63,3 +63,9 @@ async function deleteTrade(id) {
     
     trades = trades.filter((t) => t.id !== id);
 }
+
+// ─────────────────────── LOGOUT HELPER ─────────────────────────────
+async function logoutUser() {
+    await fetch("/auth/logut", { method: "POST", credentials: "include"});
+    window.location.href = "/login"
+}
