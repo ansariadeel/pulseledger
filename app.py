@@ -26,3 +26,8 @@ app.config["SESSION_COOKIE_SECURE"] = False
 # Extensions
 CORS(app, supports_credentials=True) # allow JS fetch with cookies
 bcrypt.init_app(app)
+
+# ───────────────────── FLASK-LOGIN ────────────────────────────────────
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "auth.login"     # redirect if @login_required fails
