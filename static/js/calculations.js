@@ -17,3 +17,14 @@ function calcPL(side, entryPrice, exitPrice, quantity, fees) {
 
   return { grossPL, netPL, returnPercent };
 }
+
+function calcRMultiple(netPL, entryPrice, stopPrice, quantity) {
+    if (!stopPrice || stopPrice <= 0) return "N/A";
+
+    const riskPerUnit = Math.abs(entryPrice - stopPrice);
+    const totalRisk = riskPerUnit * quantity
+
+    if (totalRisk <= 0) return "N/A";
+
+    return (netPL / totalRisk).toFixed(2);
+}
