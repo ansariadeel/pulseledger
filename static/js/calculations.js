@@ -28,3 +28,32 @@ function calcRMultiple(netPL, entryPrice, stopPrice, quantity) {
 
     return (netPL / totalRisk).toFixed(2);
 }
+
+function buildTradeObject(fields, existingId) {
+    const { side, quantity, entryPrice, exitPrice, fees, stopPrice } = fields;
+
+    const { grossPL, netPL, returnPercent } = calcPL(
+        side, entryPrice, exitPrice, quantity, fees
+    );
+
+    const rMultiple = calcRMultiple(netPL, entryPrice, stopPrice, quantity);
+
+    return {
+        id: existingId || crypto.randomUUID(),
+        date: fields.date,
+        symbol: fields.symbol,
+        market: fields.market,
+        side,
+        strategy: fields.strategy,
+        quantity,
+        entryPrice,
+        exitPrice,
+        stopPrice,
+        fees,
+        notes: fields.notes,
+        grossPL,
+        netPL,
+        returnPercent,
+        rMultiple
+    };
+}
