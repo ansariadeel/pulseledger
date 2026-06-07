@@ -38,3 +38,46 @@ function renderTrades() {
     `)
     .join("");
 }
+
+function renderMetrics() {
+  const metricGrid = document.getElementById("metricGrid");
+
+  const totalTrades = trades.length;
+
+  const totalPL = trades.reduce((sum, trade) => sum + trade.netPL, 0);
+
+  const winningTrades = trades.filter((trade) => trade.netPL > 0);
+  const losingTrades  = trades.filter((trade) => trade.netPL < 0);
+
+  const winRate =
+    totalTrades > 0
+      ? ((winningTrades.length / totalTrades) * 100).toFixed(1)
+      : 0;
+
+  metricGrid.innerHTML = `
+    <div class="metric-card">
+      <span class="metric-title">Total Trades</span>
+      <span class="metric-value">${totalTrades}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-title">Net P/L</span>
+      <span class="metric-value">$${totalPL.toFixed(2)}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-title">Win Rate</span>
+      <span class="metric-value">${winRate}%</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-title">Winners</span>
+      <span class="metric-value">${winningTrades.length}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-title">Losers</span>
+      <span class="metric-value">${losingTrades.length}</span>
+    </div>
+  `;
+}
