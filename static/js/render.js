@@ -81,3 +81,18 @@ function renderMetrics() {
     </div>
   `;
 }
+
+function updateJournalStatus() {
+  const journalStatus = document.getElementById("jornalStatus");
+
+  journalStatus.textContent =
+    trades.length === 0
+      ? "No trades recorded"
+      : `${trades.length} trades logged`
+}
+
+function refreshUI() {
+  renderTrades();
+  renderMetrics();
+  updateJournalStatus();
+}
