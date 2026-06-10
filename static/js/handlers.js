@@ -52,3 +52,9 @@ document.getElementById("tradeForm").addEventListener("submit", async function (
         submitBtn.textContent = "Save trade";
     }
 });
+
+// ---------- RESET FORM ----------
+document.getElementById("resetFormBtn").addEventListener("click", function () {
+    document.getElementById("tradeForm").reset();
+    document.getElementById("tradeId").value = "";
+});
