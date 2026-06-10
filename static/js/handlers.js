@@ -58,3 +58,6 @@ document.getElementById("resetFormBtn").addEventListener("click", function () {
     document.getElementById("tradeForm").reset();
     document.getElementById("tradeId").value = "";
 });
+
+// ---------- LOGOUT ----------
+document.getElementById("exportBtn")?.addEventListener("click", () => logoutUser());
