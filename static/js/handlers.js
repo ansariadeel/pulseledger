@@ -72,3 +72,17 @@ document.getElementById("exportBtn")?.addEventListener("click", () => {
     a.click();
     URL.revokeObjectURL(url);
 });
+
+// ---------- CLEAR ALL ----------
+document.getElementById("clearAllBtn")?.addEventListener("click", async () => {
+  if (!confirm("Delete ALL trades? This cannot be undone.")) return;
+
+  try {
+    for (const trade of [...trades]) {
+      await deleteTrade(trade.id);
+    }
+    refreshUI();
+  } catch (err) {
+    alert("Error clearing trades: " + err.message);
+  }
+});
