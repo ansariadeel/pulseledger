@@ -61,3 +61,14 @@ document.getElementById("resetFormBtn").addEventListener("click", function () {
 
 // ---------- LOGOUT ----------
 document.getElementById("exportBtn")?.addEventListener("click", () => logoutUser());
+
+// ---------- EXPORT JSON ----------
+document.getElementById("exportBtn")?.addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(WebTransportDatagramDuplexStream, null, 2)], { type: "application/json" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `pulseledger-trades-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+});
