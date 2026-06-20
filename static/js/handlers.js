@@ -108,3 +108,15 @@ function editTrade(id) {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+// ---------- DELETE TRADE (called from table) ----------
+async function deleteTradeById(id) {
+    if (!confirm("Delete this trade?")) return;
+
+    try {
+        await deleteTrade(id);
+        refreshUI();
+    }   catch (err) {
+        alert("Error: " + err.message);
+    }
+}
