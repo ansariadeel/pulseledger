@@ -86,3 +86,25 @@ document.getElementById("clearAllBtn")?.addEventListener("click", async () => {
     alert("Error clearing trades: " + err.message);
   }
 });
+
+// ---------- EDIT TRADE ----------
+function editTrade(id) {
+    const trade = trades.find((t) => t.id === id);
+    if (!trade) return;
+
+    document.getElementById("tradeId").value    = trade.id;
+    document.getElementById("tradeDate").value   = trade.date;
+  document.getElementById("symbol").value      = trade.symbol;
+  document.getElementById("market").value      = trade.market;
+  document.getElementById("side").value        = trade.side;
+  document.getElementById("strategy").value    = trade.strategy;
+  document.getElementById("quantity").value    = trade.quantity;
+  document.getElementById("entryPrice").value  = trade.entryPrice;
+  document.getElementById("exitPrice").value   = trade.exitPrice;
+  document.getElementById("stopPrice").value   = trade.stopPrice;
+  document.getElementById("fees").value        = trade.fees;
+  document.getElementById("notes").value       = trade.notes;
+  document.getElementById("tags").value        = trade.tags || "";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
