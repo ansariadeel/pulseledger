@@ -171,3 +171,33 @@ button {
   gap: 1.25rem;
   margin-bottom: 1.25rem;
 }
+
+.grid-top {
+  grid-template-columns: 1.25fr 0.85fr;
+}
+
+.grid-middle {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.grid-bottom {
+  grid-template-columns: 1fr;
+}
+
+.panel {
+  padding: 1.35rem;
+  animation: fade-up 0.7s ease;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
