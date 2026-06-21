@@ -201,3 +201,34 @@ button {
   margin: 0;
   font-size: 1.4rem;
 }
+/* ---------- TRADE FORM ---------- */
+.trade-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.trade-form label,
+.toolbar-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.trade-form span,
+.toolbar-field span {
+  font-size: 0.85rem;
+  color: var(--muted-text);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(1, 10, 14, 0.45);
+  color: var(--text-color);
+  transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
